@@ -1,0 +1,66 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Sender | Discord</title>
+    <link rel="stylesheet" href="textsender.css">
+</head>
+<body>
+
+    <div class="container">
+        <input type="text" id="messageInput" placeholder="Enter message..." name="text" class="input">
+        <button class="button" id="sendButton">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path>
+            </svg>
+            <div class="text">Send</div>
+        </button>
+
+        <div class="textbelow">
+            <b>Hecho por un grupo diverso en Peñón de San Angel 2, Ciudad de Guatemala, Zona 2.</b>
+        </div>
+    </div>
+    
+    <div class="imagelogo">
+        <img src="Text Sender.png">
+    </div>
+    
+    <script>
+        document.getElementById("sendButton").addEventListener("click", function() {
+            const message = document.getElementById("messageInput").value;
+            const webhookURL = "https://discord.com/api/webhooks/1348116564154777671/58gWBWLdd8DkjFDElissKfGchrZN46lH5_UKgcyN3p6DqOVoLOKPLetDDG0lMiHNvm32"; // Replace with your actual webhook URL
+    
+            if (message.trim() === "") {
+                alert("Please enter a message before sending.");
+                return;
+            }
+    
+            const payload = {
+                content: message
+            };
+    
+            fetch(webhookURL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Message sent!");
+                    document.getElementById("messageInput").value = ""; // Clear input after sending
+                } else {
+                    alert("Error sending message. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Failed to send message.");
+            });
+        });
+    </script>
+    
+
+</body>
+</html>
